@@ -36,25 +36,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 CupertinoListTile(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 14,
+                    horizontal: 16,
+                    vertical: 16,
                   ),
                   leadingSize: 56,
                   leading: Container(
                     width: 56,
                     height: 56,
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withOpacity(0.18),
-                      borderRadius: BorderRadius.circular(20),
+                      color: AppColors.primary.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(18),
                     ),
                     child: const Center(
                       child: Text(
                         'AJ',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 22,
                           fontWeight: FontWeight.w700,
                           color: AppColors.primary,
-                          letterSpacing: -0.2,
+                          letterSpacing: -0.3,
                         ),
                       ),
                     ),
@@ -75,7 +75,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     'Apple ID, iCloud, Media & Purchases',
                     style: CupertinoTheme.of(context).textTheme.textStyle
                         .copyWith(
-                          fontSize: 14,
+                          fontSize: 15,
                           color: CupertinoDynamicColor.resolve(
                             AppColors.textSecondary,
                             context,
@@ -89,18 +89,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           SliverToBoxAdapter(
-            child: CupertinoListSection.insetGrouped(
-              hasLeading: false,
-              backgroundColor: backgroundColor,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 8,
-                  ),
-                  child: _AddBabyCard(onPressed: () {}),
-                ),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+              child: _AddBabyCard(onPressed: () {}),
             ),
           ),
           SliverToBoxAdapter(
@@ -243,7 +234,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ],
             ),
           ),
-          const SliverPadding(padding: EdgeInsets.only(bottom: 40)),
+          const SliverPadding(padding: EdgeInsets.only(bottom: 32)),
         ],
       ),
     );
@@ -251,13 +242,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget _buildHeader(BuildContext context, String text) {
     return Padding(
-      padding: const EdgeInsets.only(left: 20, bottom: 6),
+      padding: const EdgeInsets.only(left: 16, bottom: 8, top: 8),
       child: Text(
         text.toUpperCase(),
         style: CupertinoTheme.of(context).textTheme.textStyle.copyWith(
           fontSize: 13,
           fontWeight: FontWeight.w600,
-          letterSpacing: 0.6,
+          letterSpacing: 0.5,
           color: CupertinoDynamicColor.resolve(
             AppColors.textSecondary,
             context,
@@ -269,13 +260,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget _buildIconContainer(IconData icon) {
     return Container(
-      width: 32,
-      height: 32,
+      width: 30,
+      height: 30,
       decoration: BoxDecoration(
         color: AppColors.primary.withOpacity(0.12),
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(8),
       ),
-      child: Icon(icon, color: AppColors.primary, size: 18),
+      child: Icon(icon, color: AppColors.primary, size: 16),
     );
   }
 
@@ -283,8 +274,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Text(
       text,
       style: CupertinoTheme.of(context).textTheme.textStyle.copyWith(
-        fontSize: 16,
-        fontWeight: FontWeight.w600,
+        fontSize: 17,
+        fontWeight: FontWeight.w400,
         color: CupertinoDynamicColor.resolve(AppColors.textPrimary, context),
       ),
     );
@@ -294,7 +285,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Text(
       text,
       style: CupertinoTheme.of(context).textTheme.textStyle.copyWith(
-        fontSize: 13,
+        fontSize: 15,
         color: CupertinoDynamicColor.resolve(AppColors.textSecondary, context),
       ),
     );
@@ -318,19 +309,22 @@ class _AddBabyCard extends StatelessWidget {
       context,
     );
 
+    final shadowColor = CupertinoDynamicColor.resolve(
+      AppColors.subtleShadow,
+      context,
+    );
+
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: cardColor,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: CupertinoDynamicColor.resolve(
-              AppColors.subtleShadow,
-              context,
-            ),
+            color: shadowColor,
             blurRadius: 20,
-            offset: const Offset(0, 12),
+            offset: const Offset(0, 4),
+            spreadRadius: 0,
           ),
         ],
       ),
@@ -343,13 +337,13 @@ class _AddBabyCard extends StatelessWidget {
                 width: 48,
                 height: 48,
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.12),
-                  borderRadius: BorderRadius.circular(16),
+                  color: AppColors.primary.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(14),
                 ),
                 child: const Icon(
                   CupertinoIcons.add_circled,
                   color: AppColors.primary,
-                  size: 24,
+                  size: 26,
                 ),
               ),
               const SizedBox(width: 14),
@@ -379,16 +373,23 @@ class _AddBabyCard extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           CupertinoButton(
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            color: AppColors.primary,
-            borderRadius: BorderRadius.circular(16),
+            padding: EdgeInsets.zero,
             onPressed: onPressed,
-            child: const Text(
-              'Add Baby',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: CupertinoColors.white,
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              decoration: BoxDecoration(
+                color: AppColors.primary,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Center(
+                child: Text(
+                  'Add Baby',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: CupertinoColors.white,
+                  ),
+                ),
               ),
             ),
           ),

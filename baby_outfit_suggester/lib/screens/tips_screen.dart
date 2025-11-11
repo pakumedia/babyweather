@@ -110,7 +110,7 @@ class TipsScreen extends StatelessWidget {
           SliverToBoxAdapter(child: _buildHeroCard(context)),
           for (final section in _sections) ...[
             SliverPadding(
-              padding: const EdgeInsets.only(top: 16, bottom: 8),
+              padding: const EdgeInsets.only(top: 24, bottom: 12),
               sliver: SliverToBoxAdapter(
                 child: _SectionHeader(section: section),
               ),
@@ -128,7 +128,7 @@ class TipsScreen extends StatelessWidget {
             ),
           ],
           SliverPadding(
-            padding: const EdgeInsets.fromLTRB(20, 32, 20, 32),
+            padding: const EdgeInsets.fromLTRB(16, 24, 16, 32),
             sliver: SliverToBoxAdapter(child: _buildFooterCard(context)),
           ),
         ],
@@ -146,41 +146,43 @@ class TipsScreen extends StatelessWidget {
       AppColors.textSecondary,
       context,
     );
+    final shadowColor = CupertinoDynamicColor.resolve(
+      AppColors.subtleShadow,
+      context,
+    );
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
       child: Container(
-        padding: const EdgeInsets.all(22),
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: cardColor,
-          borderRadius: BorderRadius.circular(28),
+          borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: CupertinoDynamicColor.resolve(
-                AppColors.subtleShadow,
-                context,
-              ),
-              blurRadius: 24,
-              offset: const Offset(0, 16),
+              color: shadowColor,
+              blurRadius: 20,
+              offset: const Offset(0, 4),
+              spreadRadius: 0,
             ),
           ],
         ),
         child: Row(
           children: [
             Container(
-              width: 64,
-              height: 64,
+              width: 56,
+              height: 56,
               decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.12),
-                borderRadius: BorderRadius.circular(20),
+                color: AppColors.primary.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(16),
               ),
               child: const Icon(
                 CupertinoIcons.lightbulb_fill,
                 color: AppColors.primary,
-                size: 34,
+                size: 28,
               ),
             ),
-            const SizedBox(width: 18),
+            const SizedBox(width: 16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,13 +194,18 @@ class TipsScreen extends StatelessWidget {
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
                           color: textPrimary,
+                          height: 1.2,
                         ),
                   ),
                   const SizedBox(height: 6),
                   Text(
                     'Check the forecast, pick two core layers, then add or remove based on their cues.',
                     style: CupertinoTheme.of(context).textTheme.textStyle
-                        .copyWith(fontSize: 15, color: textSecondary),
+                        .copyWith(
+                          fontSize: 15,
+                          color: textSecondary,
+                          height: 1.3,
+                        ),
                   ),
                 ],
               ),
@@ -292,15 +299,16 @@ class _SectionHeader extends StatelessWidget {
     );
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             section.title,
             style: CupertinoTheme.of(context).textTheme.textStyle.copyWith(
-              fontSize: 20,
+              fontSize: 22,
               fontWeight: FontWeight.w700,
+              letterSpacing: -0.5,
               color: textPrimary,
             ),
           ),
@@ -309,7 +317,11 @@ class _SectionHeader extends StatelessWidget {
             section.description,
             style: CupertinoTheme.of(
               context,
-            ).textTheme.textStyle.copyWith(fontSize: 15, color: textSecondary),
+            ).textTheme.textStyle.copyWith(
+              fontSize: 15,
+              color: textSecondary,
+              height: 1.3,
+            ),
           ),
         ],
       ),
@@ -335,16 +347,16 @@ class _TipListTile extends StatelessWidget {
     final accent = AppColors.primary.withOpacity(0.12);
 
     return CupertinoListTile(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       leadingSize: 52,
       leading: Container(
-        width: 48,
-        height: 48,
+        width: 44,
+        height: 44,
         decoration: BoxDecoration(
           color: accent,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(14),
         ),
-        child: Icon(tip.icon, color: AppColors.primary, size: 24),
+        child: Icon(tip.icon, color: AppColors.primary, size: 22),
       ),
       title: Text(
         tip.title,
@@ -357,7 +369,7 @@ class _TipListTile extends StatelessWidget {
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 4),
+          const SizedBox(height: 6),
           Text(
             tip.description,
             style: CupertinoTheme.of(context).textTheme.textStyle.copyWith(
@@ -367,20 +379,20 @@ class _TipListTile extends StatelessWidget {
             ),
           ),
           if (tip.badges.isNotEmpty) ...[
-            const SizedBox(height: 8),
+            const SizedBox(height: 10),
             Wrap(
-              spacing: 8,
+              spacing: 6,
               runSpacing: 6,
               children: tip.badges
                   .map(
                     (badge) => Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 10,
-                        vertical: 6,
+                        vertical: 5,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColors.primary.withOpacity(0.12),
-                        borderRadius: BorderRadius.circular(14),
+                        color: AppColors.primary.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
                         badge,
